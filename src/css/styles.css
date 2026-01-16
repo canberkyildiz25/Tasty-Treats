@@ -1,0 +1,24 @@
+/* Sections style */
+@import url('./fonts.min.css');
+@import url('./root.min.css');
+@import url('./reset.min.css');
+@import url('./header/nav.min.css');
+@import url('./header/order-popup.min.css');
+@import url('./header/greetings.min.css');
+@import url('./header/slider.min.css');
+@import url('./form-mobile.min.css');
+@import url('./form-tablet.min.css');
+@import url('./form.min.css');
+@import url('./categories.min.css');
+@import url('./modal.min.css');
+@import url('./popular-recipes.min.css');
+@import url('./popular-recipes-tablet.min.css');
+@import url('./popular-recipes-desktop.min.css');
+@import url('./favorites.min.css');
+@import url('./cards-mobile.min.css');
+@import url('./cards-tablet.min.css');
+@import url('./cards.min.css');
+@import url('./main.min.css');
+@import url('./pagination.min.css');
+@import url('./scroll-button.min.css');
+@import url('./footer.min.css');

@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="This page is about TastyTreats, favorites page of a food blog."
+    />
+    <meta
+      name="author"
+      content="Canberk Yildiz"
+    />
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./css/styles.css" />
+    <script type="module" src="./js/header/nav.js" defer></script>
+    <script type="module" src="./js/favorites.js" defer></script>
+    <script type="module" src="./js/modal.js" defer></script>
+
+    <script type="module" src="./js/footer.js" defer></script>
+    <!-- <script type="module" src="./js/footer-mascot.js" defer></script> -->
+  </head>
+
+  <body class="fav-body">
+    <!-- to fetch header -->
+
+    <nav class="navbar">
+      <div class="container navbar-container">
+        <ul class="navbar-menu">
+          <li>
+            <a href="/tasty-treats/" class="inter-font-500">Home</a>
+          </li>
+          <li>
+            <a href="/tasty-treats/favorites.html" class="active inter-font-500"
+              >Favorites</a
+            >
+          </li>
+        </ul>
+        <div class="navbar-logo">
+          <h1 class="inter-font font-weight-600">
+            <a href="/tasty-treats/"><span>tasty</span>treats.</a>
+          </h1>
+        </div>
+        <div class="navbar-actions">
+          <a href="#cart" class="cart-icon" aria-label="cart">
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <circle cx="9" cy="21" r="1"></circle>
+              <circle cx="20" cy="21" r="1"></circle>
+              <path
+                d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"
+              ></path>
+            </svg>
+          </a>
+          <div class="theme-toggle">
+            <button
+              id="themeToggle"
+              class="toggle-switch"
+              aria-label="Toggle dark mode"
+            >
+              <span class="toggle-slider">
+                <span class="toggle-knob"></span>
+              </span>
+            </button>
+            <span class="sunSide show">
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <circle cx="12" cy="12" r="5"></circle>
+                <line x1="12" y1="1" x2="12" y2="3"></line>
+                <line x1="12" y1="21" x2="12" y2="23"></line>
+                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                <line x1="1" y1="12" x2="3" y2="12"></line>
+                <line x1="21" y1="12" x2="23" y2="12"></line>
+                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+              </svg>
+            </span>
+            <span class="moonSide">
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path
+                  d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"
+                ></path>
+              </svg>
+            </span>
+          </div>
+          <button id="mobileMenuToggle" class="mobile-menu-toggle">
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+        </div>
+      </div>
+    </nav>
+    <div id="sideMenu" class="side-menu">
+      <button id="closeSideMenu" class="close-side-menu">&times;</button>
+      <ul class="side-menu-items">
+        <li><a href="/tasty-treats/">Home</a></li>
+        <li><a href="/tasty-treats/favorites.html">Favorites</a></li>
+      </ul>
+      <div class="side-menu-theme-toggle">
+        <span class="sunSide show">
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+        </span>
+        <span class="moonSide">
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+        </span>
+        <button
+          id="sideMenuThemeToggle"
+          class="toggle-switch"
+          aria-label="Toggle dark mode"
+        >
+          <span class="toggle-slider">
+            <span class="toggle-knob"></span>
+          </span>
+        </button>
+      </div>
+    </div>
+
+    <div class="fav-img">
+      <img
+        class="fav-img-item-big"
+        src="./img/favorites-large-plate.png"
+        alt="fav-hero-prepared-large-plate-photo"
+      />
+      <img
+        class="fav-img-item-medium"
+        src="./img/favorites-medium-plate-pic.png"
+        alt="fav-hero-prepared-medium-plate-photo"
+      />
+    </div>
+
+    <!-- ------------------------------------------------------ -->
+
+    <div id="message-container" class="container">
+      <div class="fav-categories">
+        <ul class="fav-categories-list container"></ul>
+      </div>
+      <ul class="favorite-cards"></ul>
+    </div>
+
+    <div class="pagination"></div>
+
+    <div class="modal" id="recipeModal">
+      <div class="modal-content">
+        <button class="modal-close-button">&times;</button>
+        <!-- Modal content will be dynamically inserted here -->
+      </div>
+    </div>
+    <footer>
+      <load ="partials/footer.html" />
+    </footer>
+  </body>
+</html>
