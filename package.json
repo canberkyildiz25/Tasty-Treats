@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build --base=/tasty-treats/",
+    "build": "vite build --base=/Tasty-Treats/",
     "preview": "vite preview",
     "deploy": "gh-pages -d dist"
   },
