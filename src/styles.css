@@ -1,0 +1,228 @@
+/* Bricolage Grotesque — değişken, el yapımı sapmaları olan display
+   Onest — nötr gövde, uzun tarif metinlerinde rahat
+   Space Mono — süreler, miktarlar, fiş numaraları; daktilo/prep fişi karakteri */
+@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Onest:wght@400;500;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap');
+
+@import 'tailwindcss';
+
+@theme {
+  /* İsli mutfak — bakır tencere, çelik tezgâh, fiş kâğıdı */
+  --color-char-950: #14120F;
+  --color-char-900: #1C1A17;
+  --color-char-800: #262320;
+  --color-char-700: #33302B;
+  --color-char-600: #454138;
+
+  /* Bakır — profesyonel mutfağın malzemesi, vurgu rengi */
+  --color-copper-600: #96551F;
+  --color-copper-500: #B87333;
+  --color-copper-400: #D18F4F;
+  --color-copper-300: #E0AC74;
+
+  /* Ateş — yalnızca aktif adım ve uyarı */
+  --color-flame-500: #D94F1E;
+
+  --color-steel-500: #8B8B87;
+  --color-steel-400: #A8A8A3;
+
+  /* Fiş kâğıdı */
+  --color-ticket-50: #FAF8F3;
+  --color-ticket-100: #F0ECE3;
+  --color-ticket-200: #DCD6C8;
+
+  --font-display: 'Bricolage Grotesque', system-ui, sans-serif;
+  --font-body: 'Onest', system-ui, sans-serif;
+  --font-mono: 'Space Mono', ui-monospace, monospace;
+
+  --animate-plate: plate 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+  --animate-simmer: simmer 3s ease-in-out infinite;
+
+  --ease-service: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes plate {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes simmer {
+  0%, 100% { opacity: 0.6; }
+  50%      { opacity: 1; }
+}
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--color-ticket-50);
+    color: var(--color-char-900);
+    font-family: var(--font-body);
+    line-height: 1.6;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    line-height: 1.04;
+    letter-spacing: -0.025em;
+  }
+
+  button:not(:disabled),
+  a[href],
+  label[for],
+  summary,
+  input[type='range'] {
+    cursor: pointer;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-copper-500);
+    outline-offset: 3px;
+  }
+
+  ::selection {
+    background: var(--color-copper-300);
+    color: var(--color-char-950);
+  }
+}
+
+@layer components {
+  /* Prep fişi — projenin taşıyıcı yüzeyi */
+  .ticket {
+    position: relative;
+    background: #fff;
+    border: 1px solid var(--color-ticket-200);
+    transition: all 0.4s var(--ease-service);
+  }
+
+  /* Fişin yırtık alt kenarı */
+  .ticket::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -1px;
+    height: 6px;
+    background-image: linear-gradient(
+      135deg,
+      transparent 45%,
+      var(--color-ticket-50) 46%
+    ),
+    linear-gradient(
+      -135deg,
+      transparent 45%,
+      var(--color-ticket-50) 46%
+    );
+    background-size: 10px 6px;
+  }
+
+  .ticket:hover {
+    border-color: var(--color-copper-500);
+    transform: translateY(-3px);
+    box-shadow: 0 14px 30px -20px rgba(20, 18, 15, 0.5);
+  }
+
+  .btn-service {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.85rem 1.7rem;
+    background: var(--color-char-900);
+    color: var(--color-ticket-50);
+    font-weight: 600;
+    font-size: 0.92rem;
+    border: none;
+    transition: all 0.35s var(--ease-service);
+  }
+
+  .btn-service:hover {
+    background: var(--color-copper-500);
+    transform: translateY(-2px);
+  }
+
+  .btn-service:disabled {
+    opacity: 0.4;
+    transform: none;
+  }
+
+  .btn-outline {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.8rem 1.6rem;
+    background: transparent;
+    color: var(--color-char-900);
+    border: 1px solid var(--color-char-700);
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: all 0.35s var(--ease-service);
+  }
+
+  .btn-outline:hover {
+    background: var(--color-char-900);
+    color: var(--color-ticket-50);
+  }
+
+  /* Fiş künyesi — süre, porsiyon, sıra numarası */
+  .docket {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-steel-500);
+  }
+
+  .stamp {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.2rem 0.55rem;
+    border: 1px solid currentColor;
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  /* Fiş üstündeki delikli ayraç */
+  .perforation {
+    height: 1px;
+    background-image: linear-gradient(
+      90deg,
+      var(--color-ticket-200) 0 6px,
+      transparent 6px 12px
+    );
+    background-size: 12px 1px;
+  }
+}
+
+@layer utilities {
+  .line-clamp-2 {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+  }
+
+  .line-clamp-3 {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+  }
+
+  .hide-scrollbar::-webkit-scrollbar { display: none; }
+  .hide-scrollbar { scrollbar-width: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
