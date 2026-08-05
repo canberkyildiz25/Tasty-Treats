@@ -5,6 +5,9 @@
   "type": "module",
   "author": "Canberk Yildiz",
   "license": "ISC",
+  "engines": {
+    "node": "22.x"
+  },
   "scripts": {
     "dev": "vite",
     "build": "vite build",
