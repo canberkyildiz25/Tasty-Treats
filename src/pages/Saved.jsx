@@ -6,6 +6,7 @@ import {
   formatDuration,
   KITCHENS,
 } from '../data/recipes'
+import { photoFor } from '../data/photos'
 import { useKitchen } from '../store/kitchen'
 
 export default function Saved() {
@@ -57,18 +58,32 @@ export default function Saved() {
           <ul className="space-y-3">
             {list.map((recipe) => {
               const kitchen = KITCHENS.find((k) => k.id === recipe.kitchen)
+              const photo = photoFor(recipe.slug)
 
               return (
                 <li key={recipe.slug} className="ticket p-5">
                   <div className="flex flex-wrap items-center gap-x-6 gap-y-4">
-                    <Link to={`/recipes/${recipe.slug}`} className="flex-1 min-w-[12rem] group">
-                      <div className="flex items-center gap-3 mb-1.5">
-                        <span className="docket">{recipe.ticket}</span>
-                        <span className="stamp text-steel-500">{kitchen?.label}</span>
+                    <Link
+                      to={`/recipes/${recipe.slug}`}
+                      className="flex items-center gap-4 flex-1 min-w-[14rem] group"
+                    >
+                      {photo && (
+                        <img
+                          src={photo.src}
+                          alt=""
+                          loading="lazy"
+                          className="w-20 h-20 object-cover shrink-0"
+                        />
+                      )}
+                      <div>
+                        <div className="flex items-center gap-3 mb-1.5">
+                          <span className="docket">{recipe.ticket}</span>
+                          <span className="stamp text-steel-500">{kitchen?.label}</span>
+                        </div>
+                        <h2 className="font-display text-xl text-char-950 leading-tight transition-colors group-hover:text-copper-500">
+                          {recipe.title}
+                        </h2>
                       </div>
-                      <h2 className="font-display text-xl text-char-950 leading-tight transition-colors group-hover:text-copper-500">
-                        {recipe.title}
-                      </h2>
                     </Link>
 
                     <dl className="flex gap-6">

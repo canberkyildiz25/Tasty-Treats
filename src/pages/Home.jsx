@@ -8,6 +8,7 @@ import {
   formatDuration,
 } from '../data/recipes'
 import { buildSchedule } from '../lib/schedule'
+import { photoFor } from '../data/photos'
 import RecipeCard from '../components/RecipeCard'
 
 /** Vitrindeki örnek gerçekten hesaplanıyor — sabit metin değil. */
@@ -16,6 +17,7 @@ const DEMO_SERVE = '20:00'
 
 export default function Home() {
   const demo = findRecipe(DEMO_SLUG)
+  const demoPhoto = photoFor(DEMO_SLUG)
   const plan = buildSchedule(demo, DEMO_SERVE)
 
   // Tezgâhta en az durduran üçü — hafta içi için
@@ -55,7 +57,16 @@ export default function Home() {
           </div>
 
           {/* Kavramı tek fişte gösteren örnek */}
-          <aside className="ticket p-6">
+          <aside className="ticket">
+            {demoPhoto && (
+              <img
+                src={demoPhoto.src}
+                alt={demo.title}
+                className="w-full aspect-4/3 object-cover"
+              />
+            )}
+
+            <div className="p-6">
             <div className="flex items-start justify-between gap-3 mb-5">
               <span className="docket">{demo.ticket}</span>
               <span className="stamp text-copper-500">Worked example</span>
@@ -107,6 +118,7 @@ export default function Home() {
             >
               SEE THE FULL PLAN →
             </Link>
+            </div>
           </aside>
         </div>
       </section>
@@ -170,8 +182,62 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Bütün set, tek ekranda */}
+      <section className="border-t border-ticket-200 bg-ticket-100/40">
+        <div className="max-w-5xl mx-auto px-5 sm:px-8 py-16 md:py-20">
+          <div className="flex flex-wrap items-end justify-between gap-4 mb-8">
+            <div>
+              <p className="docket text-copper-500 mb-3">THE FOURTEEN</p>
+              <h2 className="font-display text-3xl md:text-4xl text-char-950">
+                Everything on the board
+              </h2>
+            </div>
+            <Link
+              to="/recipes"
+              className="docket text-copper-500 hover:text-copper-600 transition-colors"
+            >
+              OPEN THE LIST →
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+            {recipes.map((recipe) => {
+              const photo = photoFor(recipe.slug)
+              if (!photo) return null
+
+              return (
+                <Link
+                  key={recipe.slug}
+                  to={`/recipes/${recipe.slug}`}
+                  className="group relative block overflow-hidden"
+                >
+                  <img
+                    src={photo.src}
+                    alt=""
+                    loading="lazy"
+                    className="w-full aspect-square object-cover transition-transform duration-700 ease-service group-hover:scale-105"
+                  />
+
+                  {/* Başlığın okunması için koyulaştırma */}
+                  <div className="absolute inset-0 bg-linear-to-t from-char-950/90 via-char-950/25 to-transparent" />
+
+                  <div className="absolute inset-x-0 bottom-0 p-3.5">
+                    <p className="font-mono text-[0.58rem] tracking-[0.14em] text-ticket-50/65 mb-1">
+                      {recipe.ticket} · {formatDuration(activeMinutes(recipe))} ON
+                    </p>
+                    <h3 className="font-display text-base leading-tight text-ticket-50 transition-colors group-hover:text-copper-300">
+                      {recipe.title}
+                    </h3>
+                  </div>
+                </Link>
+              )
+            })}
+          </div>
+        </div>
+      </section>
+
       {/* Kurs kısayolları */}
-      <section className="max-w-5xl mx-auto px-5 sm:px-8 pb-20">
+      <section className="max-w-5xl mx-auto px-5 sm:px-8 py-16 md:py-20">
         <div className="perforation mb-8" />
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {COURSES.map((course) => {
