@@ -38,10 +38,10 @@ export const photos = {
   },
   'muhammara': {
     src: '/img/muhammara.jpg',
-    credit: "Krista",
+    credit: "Karen and Brad Emerson",
     license: 'CC BY 2.0',
     licenseUrl: 'https://creativecommons.org/licenses/by/2.0/',
-    page: 'https://commons.wikimedia.org/wiki/File:Tanoreen_muhammara.jpg',
+    page: 'https://commons.wikimedia.org/wiki/File:Muhumarra_w_foccacia_(3967177145).jpg',
   },
   'ribollita': {
     src: '/img/ribollita.jpg',
