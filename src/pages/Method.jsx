@@ -1,13 +1,27 @@
 import { Link } from 'react-router-dom'
 import { STATIONS, findRecipe, formatDuration } from '../data/recipes'
 import { buildSchedule } from '../lib/schedule'
+import { photoFor } from '../data/photos'
 
 const EXAMPLE_SLUG = 'braised-short-rib'
 const EXAMPLE_SERVE = '19:30'
 
+/** Her istasyonu, o istasyonda en çok zaman geçiren tariflerden biriyle örnekliyoruz. */
+const STATION_EXAMPLES = {
+  oven: 'gratin-dauphinois',
+  hob: 'cacio-e-pepe',
+  prep: 'panzanella',
+  cold: 'lemon-posset',
+}
+
+/** Tarifin belirli bir istasyonda geçirdiği toplam süre. */
+const minutesAt = (recipe, station) =>
+  recipe.steps.filter((s) => s.station === station).reduce((sum, s) => sum + s.minutes, 0)
+
 export default function Method() {
   const recipe = findRecipe(EXAMPLE_SLUG)
   const plan = buildSchedule(recipe, EXAMPLE_SERVE)
+  const photo = photoFor(EXAMPLE_SLUG)
 
   return (
     <div className="max-w-5xl mx-auto px-5 sm:px-8 py-12 md:py-16">
@@ -45,7 +59,17 @@ export default function Method() {
       </section>
 
       {/* Çalışan örnek */}
-      <section className="ticket p-6 md:p-8 mb-16">
+      <section className="ticket mb-16 grid md:grid-cols-[260px_1fr]">
+        {photo && (
+          <img
+            src={photo.src}
+            alt={recipe.title}
+            loading="lazy"
+            className="w-full h-full aspect-3/2 md:aspect-auto object-cover"
+          />
+        )}
+
+        <div className="p-6 md:p-8">
         <div className="flex flex-wrap items-start justify-between gap-4 mb-6">
           <div>
             <p className="docket text-copper-500 mb-2">WORKED EXAMPLE</p>
@@ -73,6 +97,7 @@ export default function Method() {
           somewhere else — which is why this is a better weekday dish than most things
           that finish faster.
         </p>
+        </div>
       </section>
 
       <section className="grid md:grid-cols-[200px_1fr] gap-6 md:gap-10 mb-14">
@@ -125,12 +150,36 @@ export default function Method() {
             you have committed to both.
           </p>
           <dl className="grid grid-cols-2 gap-4">
-            {Object.entries(STATIONS).map(([id, station]) => (
-              <div key={id} className="border border-ticket-200 p-4">
-                <dt className="docket mb-1">{station.short}</dt>
-                <dd className="text-char-900">{station.label}</dd>
-              </div>
-            ))}
+            {Object.entries(STATIONS).map(([id, station]) => {
+              const example = findRecipe(STATION_EXAMPLES[id])
+              const shot = photoFor(STATION_EXAMPLES[id])
+
+              return (
+                <div key={id} className="border border-ticket-200">
+                  {shot && (
+                    <img
+                      src={shot.src}
+                      alt=""
+                      loading="lazy"
+                      className="w-full aspect-3/2 object-cover"
+                    />
+                  )}
+                  <div className="p-4">
+                    <dt className="docket mb-1">{station.short}</dt>
+                    <dd className="text-char-900 mb-1.5">{station.label}</dd>
+                    {example && (
+                      <p className="text-xs text-char-800/60 leading-snug">
+                        {example.title} spends{' '}
+                        <span className="font-mono">
+                          {formatDuration(minutesAt(example, id))}
+                        </span>{' '}
+                        here
+                      </p>
+                    )}
+                  </div>
+                </div>
+              )
+            })}
           </dl>
         </div>
       </section>
