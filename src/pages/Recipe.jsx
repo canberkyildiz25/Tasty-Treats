@@ -91,12 +91,11 @@ export default function Recipe() {
 
         {/* Fotoğraflar Wikimedia Commons'tan; lisans künyeyi zorunlu kılıyor */}
         {photo && (
-          <figure className="hidden md:block">
+          <figure className="order-first md:order-none">
             <img
               src={photo.src}
               alt={recipe.title}
-              loading="lazy"
-              className="w-full aspect-4/5 object-cover border border-ticket-200"
+              className="w-full aspect-3/2 md:aspect-4/5 object-cover border border-ticket-200"
             />
             <figcaption className="docket mt-2.5 leading-relaxed">
               {photo.credit}
