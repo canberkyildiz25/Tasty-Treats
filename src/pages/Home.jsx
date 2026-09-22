@@ -25,6 +25,20 @@ export default function Home() {
     .sort((a, b) => activeMinutes(a) - activeMinutes(b))
     .slice(0, 3)
 
+  /* Toplam süre ile tezgâh süresinin ayrıştığını gösterecek üçlü.
+     Seçim elle değil, orandan: en uzun süren tarif, tezgâh oranı en
+     yüksek olan tarif, ve ikisinin arasında kalan bir tane. Böylece
+     çubuklar veriyi değil, veri çubukları belirliyor — tarifler
+     değişirse örnek de kendiliğinden değişir. */
+  const byRatio = [...recipes].sort(
+    (a, b) => activeMinutes(a) / totalMinutes(a) - activeMinutes(b) / totalMinutes(b),
+  )
+  const spread = [...new Set([
+    byRatio[0],                                  // en çok bekleten
+    byRatio[Math.floor(byRatio.length / 2)],     // ortadaki
+    byRatio[byRatio.length - 1],                 // en çok tezgâhta tutan
+  ])]
+
   return (
     <>
       <section className="max-w-5xl mx-auto px-5 sm:px-8 pt-14 pb-16 md:pt-20 md:pb-24">
@@ -123,11 +137,21 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Üç sayı — sitenin bütün iddiası bu ayrımda */}
+      {/* Üç sayı — sitenin bütün iddiası bu ayrımda.
+          Burada üç eşit ağırlıklı kart vardı. Metin "hands on: bu akşamın
+          olup olmayacağına karar veren sayı" derken düzen üçünü eşitliyor,
+          yani iddiayı yazıp görsel olarak geri alıyordu. Üstelik üç eşit
+          kart, üretilmiş arayüzün en tanınan kalıbı.
+
+          Yerine oranın kendisi geldi. Çubuklar gerçek tariflerden
+          hesaplanıyor: uzunluk toplam süreyi, bakır dilim tezgâhta geçen
+          süreyi gösteriyor. Limon posseti üç buçuk saat sürüyor ama sizi
+          dokuz dakika tutuyor; cacio e pepe yirmi dakika sürüyor ve
+          neredeyse tamamında tencerenin başındasınız. Argüman tek bakışta
+          görünüyor, üç kutu okumaya gerek kalmadan. */}
       <section className="border-y border-ticket-200 bg-ticket-100/60">
         <div className="max-w-5xl mx-auto px-5 sm:px-8 py-14 md:py-20">
           <div className="max-w-xl mb-10">
-            <p className="docket text-copper-500 mb-3">THE THREE NUMBERS</p>
             <h2 className="font-display text-3xl md:text-4xl text-char-950 mb-4">
               Total time tells you almost nothing
             </h2>
@@ -137,36 +161,65 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="grid gap-5 sm:grid-cols-3">
-            <Number
-              label="TOTAL"
-              value="Start to plate"
-              body="Everything end to end, including the oven coming up to temperature and the rest afterwards."
-            />
-            <Number
-              label="HANDS ON"
-              value="You, at the bench"
-              body="The minutes you cannot spend anywhere else. This is the number that decides whether tonight works."
-              accent
-            />
-            <Number
-              label="WAITING"
-              value="The oven's problem"
-              body="Proving, braising, chilling, resting. Marked separately on every step so you know when to sit down."
-            />
+          <div className="space-y-5">
+            {spread.map((recipe) => {
+              const total = totalMinutes(recipe)
+              const hands = activeMinutes(recipe)
+              return (
+                /* Her çubuk tam genişlik. Uzunluğu toplam süreye göre
+                   ölçeklemeyi denedim ve işe yaramadı: pizza on altı saat
+                   mayalandığı için onun çubuğu diğer ikisini birkaç piksele
+                   indiriyor, bakır dilim görünmez oluyordu — yani tam da
+                   gösterilmek istenen şey kayboluyordu. Karşılaştırılan şey
+                   zaten süre değil oran: toplamın ne kadarı gerçekten siz. */
+                <div key={recipe.slug} className="grid sm:grid-cols-[minmax(0,1fr)_2.5fr] gap-x-6 gap-y-1.5 items-baseline">
+                  <Link
+                    to={`/recipes/${recipe.slug}`}
+                    className="font-display text-lg text-char-950 hover:text-copper-500 transition-colors text-balance"
+                  >
+                    {recipe.title}
+                  </Link>
+                  <div className="min-w-0">
+                    <div
+                      className="h-2.5 flex rounded-[1px] overflow-hidden bg-ticket-200"
+                      role="img"
+                      aria-label={`${recipe.title}: ${formatDuration(hands)} hands on out of ${formatDuration(total)} total`}
+                    >
+                      <span
+                        className="bg-copper-500 h-full"
+                        style={{ width: `${Math.max((hands / total) * 100, 1.5)}%` }}
+                      />
+                    </div>
+                    <p className="docket mt-1.5">
+                      <span className="text-copper-500">{formatDuration(hands)} HANDS ON</span>
+                      <span className="text-steel-500"> · OF {formatDuration(total)}</span>
+                    </p>
+                  </div>
+                </div>
+              )
+            })}
           </div>
+
+          <p className="text-sm text-char-800/70 leading-relaxed max-w-lg mt-10 pt-6 border-t border-ticket-200">
+            The copper is you, at the bench — the minutes you cannot spend anywhere
+            else. The rest is the oven's problem: proving, braising, chilling,
+            resting. Every step is marked one way or the other, so you know when you
+            can sit down.
+          </p>
         </div>
       </section>
 
-      {/* Hafta içi seçkisi */}
+      {/* Hafta içi seçkisi.
+          Bunlar da üç eşit karttı — sayfadaki ikinci üçlü. Üçü aynı
+          ağırlıkta dizilince sıralamanın bir anlamı kalmıyordu, oysa liste
+          zaten sıralı: tezgâhta en az tutan başta. Artık ilk sıradaki kart
+          iki sütun kaplıyor, diğer ikisi yanında duruyor — yani düzen de
+          "şununla başla" diyor. */}
       <section className="max-w-5xl mx-auto px-5 sm:px-8 py-16 md:py-20">
         <div className="flex flex-wrap items-end justify-between gap-4 mb-8">
-          <div>
-            <p className="docket text-copper-500 mb-3">LEAST TIME ON YOUR FEET</p>
-            <h2 className="font-display text-3xl md:text-4xl text-char-950">
-              For a weeknight
-            </h2>
-          </div>
+          <h2 className="font-display text-3xl md:text-4xl text-char-950">
+            For a weeknight
+          </h2>
           <Link
             to="/recipes?effort=quick"
             className="docket text-copper-500 hover:text-copper-600 transition-colors"
@@ -175,9 +228,11 @@ export default function Home() {
           </Link>
         </div>
 
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {weeknight.map((recipe) => (
-            <RecipeCard key={recipe.slug} recipe={recipe} />
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {weeknight.map((recipe, i) => (
+            <div key={recipe.slug} className={i === 0 ? 'lg:col-span-2' : ''}>
+              <RecipeCard recipe={recipe} />
+            </div>
           ))}
         </div>
       </section>
@@ -187,7 +242,6 @@ export default function Home() {
         <div className="max-w-5xl mx-auto px-5 sm:px-8 py-16 md:py-20">
           <div className="flex flex-wrap items-end justify-between gap-4 mb-8">
             <div>
-              <p className="docket text-copper-500 mb-3">THE FOURTEEN</p>
               <h2 className="font-display text-3xl md:text-4xl text-char-950">
                 Everything on the board
               </h2>
@@ -267,21 +321,5 @@ export default function Home() {
         </div>
       </section>
     </>
-  )
-}
-
-function Number({ label, value, body, accent }) {
-  return (
-    <div className="ticket p-6">
-      <p className="docket mb-3">{label}</p>
-      <p
-        className={`font-display text-2xl mb-3 ${
-          accent ? 'text-copper-500' : 'text-char-950'
-        }`}
-      >
-        {value}
-      </p>
-      <p className="text-sm text-char-800/70 leading-relaxed">{body}</p>
-    </div>
   )
 }

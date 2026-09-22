@@ -2,3 +2,8 @@ node_modules
 dist
 .netlify
 .DS_Store
+.vercel
+.env*
+
+# Claude Code yerel ayarlari
+.claude/
