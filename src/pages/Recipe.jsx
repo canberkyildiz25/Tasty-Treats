@@ -41,14 +41,14 @@ export default function Recipe() {
     .slice(0, 3)
 
   return (
-    <div className="max-w-5xl mx-auto px-5 sm:px-8 py-10 md:py-14">
+    <div className="recipe-detail max-w-5xl mx-auto px-5 sm:px-8 py-10 md:py-14">
       <nav className="docket mb-7 flex items-center gap-2">
         <Link to="/recipes" className="hover:text-copper-500 transition-colors">RECIPES</Link>
         <span>/</span>
         <span className="text-char-900">{recipe.ticket}</span>
       </nav>
 
-      <header className="grid md:grid-cols-[1fr_240px] gap-8 items-start mb-12">
+      <header className="recipe-detail-heading grid md:grid-cols-[1fr_240px] gap-8 items-start mb-12">
         <div>
           <div className="flex flex-wrap gap-2 mb-4">
             <span className="stamp text-copper-500">{course?.label}</span>
@@ -69,6 +69,7 @@ export default function Recipe() {
           <div className="flex flex-wrap items-center gap-6">
             <button
               onClick={() => toggleSaved(recipe.slug)}
+              aria-pressed={saved}
               className={saved ? 'btn-outline' : 'btn-service'}
             >
               {saved ? '✓ Saved' : 'Save this'}
@@ -121,6 +122,7 @@ export default function Recipe() {
             <div className="flex items-center border border-ticket-200">
               <button
                 onClick={() => setServings(recipe.slug, Math.max(1, servings - 1))}
+                disabled={servings <= 1}
                 className="px-2.5 py-1 text-char-800 hover:bg-ticket-100 transition-colors"
                 aria-label="Fewer servings"
               >
@@ -129,6 +131,7 @@ export default function Recipe() {
               <span className="font-mono text-sm w-7 text-center">{servings}</span>
               <button
                 onClick={() => setServings(recipe.slug, Math.min(20, servings + 1))}
+                disabled={servings >= 20}
                 className="px-2.5 py-1 text-char-800 hover:bg-ticket-100 transition-colors"
                 aria-label="More servings"
               >

@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react'
+import { useSearchParams } from 'react-router-dom'
 import { STATIONS, formatDuration } from '../data/recipes'
 import { buildSchedule, defaultServeTime } from '../lib/schedule'
 
@@ -9,7 +10,13 @@ import { buildSchedule, defaultServeTime } from '../lib/schedule'
  * mesele toplam süre değil, tezgâhta kaç dakika duracağın.
  */
 export default function CookTimeline({ recipe }) {
-  const [serveAt, setServeAt] = useState(defaultServeTime)
+  const [params] = useSearchParams()
+  const [serveAt, setServeAt] = useState(() => {
+    const requestedTime = params.get('at')
+    return /^([01]\d|2[0-3]):[0-5]\d$/.test(requestedTime || '')
+      ? requestedTime
+      : defaultServeTime()
+  })
 
   const schedule = useMemo(() => buildSchedule(recipe, serveAt), [recipe, serveAt])
   const longest = Math.max(...schedule.steps.map((s) => s.minutes))
@@ -27,7 +34,7 @@ export default function CookTimeline({ recipe }) {
           <input
             type="time"
             value={serveAt}
-            onChange={(e) => setServeAt(e.target.value)}
+            onChange={(e) => { if (e.target.value) setServeAt(e.target.value) }}
             className="font-mono text-lg bg-ticket-50 border border-ticket-200 px-3 py-1.5 focus:border-copper-500 focus:outline-none"
           />
         </label>

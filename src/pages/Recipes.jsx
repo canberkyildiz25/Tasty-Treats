@@ -56,6 +56,7 @@ export default function Recipes() {
               key={slug}
               to={`/recipes/${slug}`}
               title={dish.title}
+              aria-label={dish.title}
               className="group relative block overflow-hidden"
             >
               <img
@@ -72,7 +73,7 @@ export default function Recipes() {
         })}
       </div>
 
-      <div className="max-w-5xl mx-auto px-5 sm:px-8 py-12 md:py-16">
+      <div className="recipe-library max-w-5xl mx-auto px-5 sm:px-8 py-12 md:py-16">
         <header className="mb-10 max-w-xl">
           <p className="docket text-copper-500 mb-3">THE LIST</p>
           <h1 className="font-display text-5xl md:text-6xl text-char-950 mb-4">Recipes</h1>
@@ -90,7 +91,7 @@ export default function Recipes() {
           <FilterRow label="Effort" options={EFFORT} active={effort} onSelect={(v) => setFilter('effort', v)} />
         </div>
 
-        <p className="docket mb-5">
+        <p className="docket mb-5" role="status">
           {visible.length} {visible.length === 1 ? 'RECIPE' : 'RECIPES'}
         </p>
 
@@ -104,6 +105,9 @@ export default function Recipes() {
           <div className="py-20 text-center">
             <p className="font-display text-2xl mb-3">Nothing at that combination</p>
             <p className="text-char-800/60">Try dropping one of the filters.</p>
+            <button className="btn-outline mt-6" onClick={() => setParams({}, { replace: true })}>
+              Clear filters
+            </button>
           </div>
         )}
       </div>
@@ -113,7 +117,7 @@ export default function Recipes() {
 
 function FilterRow({ label, options, active, onSelect }) {
   return (
-    <div className="flex flex-wrap items-center gap-2">
+    <div className="flex flex-wrap items-center gap-2" role="group" aria-label={label}>
       <span className="docket w-16 shrink-0">{label}</span>
       <Chip active={active === 'all'} onClick={() => onSelect('all')}>Any</Chip>
       {options.map((option) => (
@@ -129,6 +133,7 @@ function Chip({ active, onClick, children }) {
   return (
     <button
       onClick={onClick}
+      aria-pressed={active}
       className={`px-3.5 py-1.5 text-sm border transition-all duration-300 ${
         active
           ? 'bg-char-900 text-ticket-50 border-char-900'

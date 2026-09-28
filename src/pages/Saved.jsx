@@ -18,7 +18,7 @@ export default function Saved() {
   const handsTotal = list.reduce((sum, r) => sum + activeMinutes(r), 0)
 
   return (
-    <div className="max-w-5xl mx-auto px-5 sm:px-8 py-12 md:py-16">
+    <div className="saved-page max-w-5xl mx-auto px-5 sm:px-8 py-12 md:py-16">
       <header className="mb-10 max-w-xl">
         <p className="docket text-copper-500 mb-3">THE PASS</p>
         <h1 className="font-display text-5xl md:text-6xl text-char-950 mb-4">Saved</h1>

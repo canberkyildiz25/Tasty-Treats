@@ -24,7 +24,7 @@ export default function Method() {
   const photo = photoFor(EXAMPLE_SLUG)
 
   return (
-    <div className="max-w-5xl mx-auto px-5 sm:px-8 py-12 md:py-16">
+    <div className="method-page max-w-5xl mx-auto px-5 sm:px-8 py-12 md:py-16">
       <header className="max-w-2xl mb-14">
         <p className="docket text-copper-500 mb-3">THE METHOD</p>
         <h1 className="font-display text-5xl md:text-6xl text-char-950 mb-5">

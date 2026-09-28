@@ -1,62 +1,49 @@
-import { Link } from 'react-router-dom'
-import { totalMinutes, activeMinutes, formatDuration, KITCHENS } from '../data/recipes'
-import { photoFor } from '../data/photos'
-import { useKitchen } from '../store/kitchen'
+import { Link } from "react-router-dom";
+import {
+  totalMinutes,
+  activeMinutes,
+  formatDuration,
+  KITCHENS,
+} from "../data/recipes";
+import { photoFor } from "../data/photos";
+import { useKitchen } from "../store/kitchen";
 
 export default function RecipeCard({ recipe }) {
-  const saved = useKitchen((s) => s.saved.includes(recipe.slug))
-  const kitchen = KITCHENS.find((k) => k.id === recipe.kitchen)
-  const photo = photoFor(recipe.slug)
-  const total = totalMinutes(recipe)
-  const hands = activeMinutes(recipe)
-
+  const saved = useKitchen((s) => s.saved.includes(recipe.slug));
+  const kitchen = KITCHENS.find((k) => k.id === recipe.kitchen);
+  const photo = photoFor(recipe.slug);
   return (
-    <Link to={`/recipes/${recipe.slug}`} className="ticket block group">
+    <Link to={`/recipes/${recipe.slug}`} className="recipe-card">
       {photo && (
-        <div className="overflow-hidden">
-          <img
-            src={photo.src}
-            alt=""
-            loading="lazy"
-            className="w-full aspect-16/10 object-cover transition-transform duration-700 ease-service group-hover:scale-105"
-          />
+        <div className="recipe-card-image">
+          <img src={photo.src} alt="" loading="lazy" width="800" height="650" />
         </div>
       )}
-
-      <div className="p-5">
-        <div className="flex items-start justify-between gap-3 mb-4">
-          <span className="docket">{recipe.ticket}</span>
-          <div className="flex gap-1.5">
-            {saved && <span className="stamp text-copper-500">Saved</span>}
-            <span className="stamp text-steel-500">{kitchen?.label}</span>
-          </div>
+      <div className="recipe-card-body">
+        <div className="recipe-card-meta">
+          <span>
+            {recipe.ticket} / {kitchen?.label}
+          </span>
+          {saved && <span>Saved</span>}
+          <span aria-hidden="true">↗</span>
         </div>
-
-        <h3 className="font-display text-xl text-char-950 mb-2 leading-tight transition-colors group-hover:text-copper-500">
-          {recipe.title}
-        </h3>
-
-        <p className="text-sm text-char-800/70 line-clamp-2 leading-snug mb-5">
-          {recipe.short}
-        </p>
-
-        <div className="perforation mb-3.5" />
-
-        <dl className="grid grid-cols-3 gap-3">
+        <h3>{recipe.title}</h3>
+        <p>{recipe.short}</p>
+        <dl>
           <div>
-            <dt className="docket mb-0.5">Total</dt>
-            <dd className="font-mono text-sm text-char-900">{formatDuration(total)}</dd>
+            <dt>Hands on</dt>
+            <dd>{formatDuration(activeMinutes(recipe))}</dd>
           </div>
           <div>
-            <dt className="docket mb-0.5">Hands on</dt>
-            <dd className="font-mono text-sm text-copper-500">{formatDuration(hands)}</dd>
+            <dt>Total</dt>
+            <dd>{formatDuration(totalMinutes(recipe))}</dd>
           </div>
           <div>
-            <dt className="docket mb-0.5">Serves</dt>
-            <dd className="font-mono text-sm text-char-900">{recipe.serves}</dd>
+            <dt>Serves</dt>
+            <dd>{recipe.serves}</dd>
           </div>
         </dl>
       </div>
     </Link>
-  )
+  );
 }
