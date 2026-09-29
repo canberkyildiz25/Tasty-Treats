@@ -1,9 +1,9 @@
 node_modules
-dist
-.netlify
-.DS_Store
+.next
+out
 .vercel
 .env*
-
-# Claude Code yerel ayarlari
+.DS_Store
+next-env.d.ts
+*.tsbuildinfo
 .claude/
