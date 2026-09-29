@@ -17,7 +17,7 @@ export default function HomeIndex({ recipes }: { recipes: Recipe[] }) {
         {options.map((o) => (
           <button
             key={o.id}
-            className="chip"
+            className={`chip${o.id === 'all' ? '' : ` toned course-${o.id}`}`}
             aria-pressed={course === o.id}
             onClick={() => setCourse(o.id)}
           >
@@ -35,7 +35,7 @@ export default function HomeIndex({ recipes }: { recipes: Recipe[] }) {
               <Link href={`/recipes/${r.slug}`}>
                 {photo ? <Image src={photo.src} alt="" width={144} height={144} sizes="72px" /> : <span />}
                 <div className="min-w-0">
-                  <p className="docket">{r.ticket} · {formatDuration(activeMinutes(r))} hands on · {formatDuration(totalMinutes(r))} total</p>
+                  <p className="docket"><b className={`tone course-${r.course} font-normal`}>{r.ticket}</b> · {formatDuration(activeMinutes(r))} hands on · {formatDuration(totalMinutes(r))} total</p>
                   <h3 className="mt-1">{r.title}</h3>
                 </div>
                 <span className="arrow" aria-hidden>↗</span>

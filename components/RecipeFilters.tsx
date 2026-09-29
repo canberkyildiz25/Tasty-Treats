@@ -53,7 +53,7 @@ export default function RecipeFilters() {
   return (
     <>
       <div className="filters">
-        <FilterRow label="Course" options={COURSES} active={course} onSelect={(v) => setFilter('course', v)} />
+        <FilterRow label="Course" options={COURSES} active={course} onSelect={(v) => setFilter('course', v)} toned />
         <FilterRow label="Kitchen" options={KITCHENS} active={kitchen} onSelect={(v) => setFilter('kitchen', v)} />
         <FilterRow label="Effort" options={EFFORT} active={effort} onSelect={(v) => setFilter('effort', v)} />
       </div>
@@ -63,7 +63,7 @@ export default function RecipeFilters() {
       {visible.length > 0 ? (
         <RecipeGrid list={visible} />
       ) : (
-        <div className="py-20 border-t border-ticket-200">
+        <div className="py-20 border-t border-line">
           <p className="title-s">Nothing at that combination.</p>
           <p className="text-muted mt-2">Try dropping one of the filters.</p>
           <button className="btn btn-ghost mt-6" onClick={() => replaceSearch(new URLSearchParams())}>
@@ -75,11 +75,14 @@ export default function RecipeFilters() {
   )
 }
 
-function FilterRow({ label, options, active, onSelect }: {
+function FilterRow({ label, options, active, onSelect, toned = false }: {
   label: string
   options: { id: string; label: string }[]
   active: string
   onSelect: (id: string) => void
+  /* Öğün süzgeci öğün renklerini taşıyor — fiş kodlarında ve damgalarda
+     kullanılan renklerin aynısı. */
+  toned?: boolean
 }) {
   return (
     <div className="filter-row" role="group" aria-label={label}>
@@ -87,7 +90,7 @@ function FilterRow({ label, options, active, onSelect }: {
       <div className="chips">
         <button className="chip" aria-pressed={active === 'all'} onClick={() => onSelect('all')}>Any</button>
         {options.map((o) => (
-          <button key={o.id} className="chip" aria-pressed={active === o.id} onClick={() => onSelect(o.id)}>
+          <button key={o.id} className={`chip${toned ? ` toned course-${o.id}` : ''}`} aria-pressed={active === o.id} onClick={() => onSelect(o.id)}>
             {o.label}
           </button>
         ))}

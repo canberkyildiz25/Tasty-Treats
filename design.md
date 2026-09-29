@@ -5,10 +5,10 @@ file when the system needs to grow.
 
 MISE is a recipe site built around one idea: you say when you want to eat, and
 every step of the recipe gets a clock time, with the minutes that need you
-separated from the minutes that don't. The visual system comes out of the
-object that already does that job in a restaurant kitchen — the prep ticket:
-paper, a typewriter docket, a perforated edge, copper pans, a smoked-charcoal
-pass.
+separated from the minutes that don't. The structure comes out of the object
+that already does that job in a restaurant kitchen — the prep ticket: a
+typewriter docket, a perforated rule, a ticket number. The colour comes out of
+the market: tomato, saffron, basil, aubergine.
 
 Rebuilt on the FORGE stack (Next.js 16, TypeScript, Tailwind 4, GSAP
 ScrollTrigger, Framer Motion, next/font). The identity is MISE's own; only the
@@ -17,27 +17,44 @@ engineering and the motion vocabulary come from FORGE.
 ## Genre
 editorial / utility
 
+## Palette — the market board (2026-09-29)
+The owner asked for livelier colour and to lose the sepia (paper, charcoal,
+copper). The new colours come from the recipes' own ingredients, and each one
+has a job:
+
+| Colour | Value | Job | Contrast |
+| --- | --- | --- | --- |
+| Tomato | `#D6301F` | primary accent, buttons, times, *mains*, *oven* | 4.88 on white; white on it 4.88 |
+| Saffron | `#FFC21A` | block surface (home selection), CTA on film, bars on aubergine | ink on it 11.25 |
+| Basil | `#137A45` | *starters*, *bench* | 5.39 on white |
+| Sky | `#1565C0` | *sides*, *fridge* | 5.75 on white |
+| Plum | `#6B2A7A` | *puddings* | white on it > 9 |
+| Hob orange | `#E8590C` | *hob* bars only (tag uses `#B8430A`) | 3.58, non-text |
+| Aubergine | `#2B0F36` | dark surface: film scrim, ledger band | white 17.15 · saffron 10.60 |
+| Ink | `#1B1220` | text | 18.20 on white |
+| Muted | `#5E5563` | secondary text | 7.11 on white |
+
+On saffron, tomato and course colours fall below 3:1, so the saffron block
+uses deep tomato `#A51D10` (4.67) and ink.
+
 ## Surfaces
-- **Pass** — smoked charcoal `#14120F`. The opening film on the home page, the
-  "time that needs you" band, the footer. Warm, dark, lit by copper.
-- **Paper** — prep-ticket paper `#FAF8F3`. Everything you read or use.
-- **Ticket** — white `#FFFFFF` with a hairline and a torn bottom edge. Only
-  for things that behave like a ticket: the plan, the ingredient list, a saved
-  recipe.
+- **Canvas** — plain white. No cream, no paper tint.
+- **Aubergine** — the opening film's scrim and the "time that needs you" band.
+- **Saffron** — the short selection on the home page.
+- **Tomato** (`#C8281A`) — the footer, with a tone-on-tone wordmark (a saffron
+  wordmark on red read as fast-food branding).
+- **Ticket** — white, hairline, a 5 px colour rule on top instead of a torn
+  paper edge (tomato for the plan, saffron for ingredients).
 
-## Palette (measured on its surface)
-| Role | Value | Contrast |
-| --- | --- | --- |
-| Ink on paper | `#1C1A17` | 16.36 |
-| Muted on paper | `#6A655C` | 5.45 |
-| Copper text on paper | `#96551F` | 5.47 |
-| Copper fill (bars, rules — not text) | `#B87333` | 3.57, non-text |
-| Paper on pass | `#FAF8F3` | 17.62 |
-| Muted on pass | `#A9A396` | 7.45 |
-| Copper text on pass | `#D18F4F` | 6.90 |
-| Warning | `#B83D12` | 5.33 |
-
-The old docket grey `#8B8B87` measured 3.22 on paper and is retired for text.
+## Colour carries meaning, never alone
+- Courses: starters basil, mains tomato, sides sky, puddings plum — on ticket
+  codes, stamps and the course filter chips; the course name is always there.
+- Stations: oven tomato, hob orange, bench basil, fridge sky — on timeline
+  bars, with the station code (OVN/HOB/PRP/CLD) next to every bar and a legend
+  under every timeline.
+- Solid bar = hands on, hatched = waiting, plus the word "unattended".
+- Focus ring changes with the surface (`--focus`): tomato on white, saffron on
+  aubergine, ink on saffron, white on tomato.
 
 ## Typography
 - **Display:** Bricolage Grotesque, 700–800, optical size on. Roman only —

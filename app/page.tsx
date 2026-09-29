@@ -55,7 +55,7 @@ export default function Home() {
             minutes that need you are kept apart from the ones that don’t.
           </p>
           <div className="film-actions rise" style={{ '--i': 5 } as React.CSSProperties}>
-            <Link href="/recipes" className="btn btn-light magnetic">
+            <Link href="/recipes" className="btn btn-saffron magnetic">
               Find your next dinner <span className="arrow" aria-hidden>↗</span>
             </Link>
             <a href="#plan" className="text-link">See how it works</a>
@@ -115,14 +115,14 @@ export default function Home() {
             })}
           </ul>
           <div className="legend docket">
-            <span><i className="bg-copper-500" /> Hands on</span>
+            <span><i className="bg-saffron" /> Hands on</span>
             <span><i style={{ background: 'var(--hatch-pass)' }} /> Waiting — oven, pot, fridge</span>
           </div>
         </div>
       </section>
 
       {/* ── Selection ────────────────────────────────────── */}
-      <section className="section" aria-labelledby="weeknight-heading">
+      <section className="section block-saffron" aria-labelledby="weeknight-heading">
         <div className="frame">
           <div className="section-head-split mb-[clamp(2.5rem,5vw,4rem)]">
             <div className="section-head mb-0">

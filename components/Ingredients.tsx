@@ -11,8 +11,8 @@ export default function Ingredients({ recipe }: { recipe: Recipe }) {
   const servings = stored ?? recipe.serves
 
   return (
-    <aside className="ticket ingredients" aria-labelledby="ing-title">
-      <div className="flex items-center justify-between gap-4">
+    <aside className="ticket ingredients" style={{ '--ticket-tone': 'var(--color-saffron)' } as React.CSSProperties} aria-labelledby="ing-title">
+      <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-3">
         <h2 id="ing-title" className="eyebrow">Ingredients</h2>
         <div className="stepper" role="group" aria-label="Servings">
           <button onClick={() => setServings(recipe.slug, Math.max(1, servings - 1))} disabled={servings <= 1} aria-label="Fewer servings">−</button>

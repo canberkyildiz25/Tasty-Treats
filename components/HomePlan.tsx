@@ -5,7 +5,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { useMemo, useState } from 'react'
-import { formatDuration, type Recipe } from '@/lib/recipes'
+import { STATIONS, formatDuration, type Recipe } from '@/lib/recipes'
 import { buildSchedule } from '@/lib/schedule'
 import type { Photo } from '@/lib/photos'
 import TimeInput from './TimeInput'
@@ -22,7 +22,7 @@ export default function HomePlan({ recipe, photo }: { recipe: Recipe; photo: Pho
         <p className="start" aria-live="polite">{plan.startLabel}</p>
         {plan.startsYesterday && <p className="notice mt-4">That is the day before.</p>}
         <dl className="plan-figures">
-          <div><dt className="docket">Needs you</dt><dd className="text-copper-600">{formatDuration(plan.hands)}</dd></div>
+          <div><dt className="docket">Needs you</dt><dd className="text-tomato">{formatDuration(plan.hands)}</dd></div>
           <div><dt className="docket">Yours to spend</dt><dd>{formatDuration(plan.idle)}</dd></div>
         </dl>
         {photo && (
@@ -46,10 +46,14 @@ export default function HomePlan({ recipe, photo }: { recipe: Recipe; photo: Pho
               <div className="meta">
                 <span
                   className={`bar bar-grow ${step.hands ? '' : 'idle'}`}
+                  data-station={step.station}
                   style={{ width: `${Math.max(6, (step.minutes / longest) * 100) * 0.62}%` }}
                   aria-hidden
                 />
                 <span className="docket">{formatDuration(step.minutes)}{step.hands ? '' : ' · walk away'}</span>
+                <span className="station-tag ml-auto" data-station={step.station} title={STATIONS[step.station].label}>
+                  {STATIONS[step.station].short}
+                </span>
               </div>
             </li>
           ))}

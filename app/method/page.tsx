@@ -73,14 +73,14 @@ export default function MethodPage() {
           </div>
           <div className="perforation my-6" />
           <dl className="grid grid-cols-2 sm:grid-cols-4 gap-5">
-            <div><dt className="docket">Start at</dt><dd className="mono text-2xl text-copper-600 mt-1">{plan.startLabel}</dd></div>
+            <div><dt className="docket">Start at</dt><dd className="mono text-2xl text-tomato mt-1">{plan.startLabel}</dd></div>
             <div><dt className="docket">Total</dt><dd className="mono text-2xl mt-1">{formatDuration(plan.total)}</dd></div>
             <div><dt className="docket">Hands on</dt><dd className="mono text-2xl mt-1">{formatDuration(plan.hands)}</dd></div>
             <div><dt className="docket">Waiting</dt><dd className="mono text-2xl mt-1">{formatDuration(plan.idle)}</dd></div>
           </dl>
           <p className="mt-6 text-muted leading-relaxed max-w-xl">
             <span className="mono text-ink">{formatDuration(plan.total)}</span> on paper, but only{' '}
-            <span className="mono text-copper-600">{formatDuration(plan.hands)}</span> of it wants you in
+            <span className="mono text-tomato">{formatDuration(plan.hands)}</span> of it wants you in
             the kitchen. The rest is the oven working while you are somewhere else — which is why this is
             a better weekday dish than most things that finish faster.
           </p>
@@ -117,7 +117,7 @@ export default function MethodPage() {
               const example = findRecipe(STATION_EXAMPLES[id])
               const shot = photoFor(STATION_EXAMPLES[id])
               return (
-                <div key={id} className="border border-ticket-200 bg-white">
+                <div key={id} className="border border-line bg-white">
                   {shot && (
                     <div className="relative aspect-[3/2] curtain">
                       <Image src={shot.src} alt="" fill sizes="(max-width: 768px) 50vw, 20vw" />

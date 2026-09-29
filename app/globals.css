@@ -2,31 +2,28 @@
 @import 'tailwindcss';
 
 @theme {
-  /* Pass — smoked charcoal */
-  --color-char-950: #14120f;
-  --color-char-900: #1c1a17;
-  --color-char-800: #262320;
-  --color-char-700: #33302b;
-  --color-char-600: #454138;
+  /* Pazar tezgâhı paleti — tariflerin kendi malzemelerinden: domates,
+     safran, fesleğen, patlıcan. Sepya/kâğıt/bakır paletinin yerine
+     (sahibinin isteği, 2026-09-29). Kontrastlar design.md'de. */
+  --color-canvas: #ffffff;
+  --color-mist: #f6f3f7;
+  --color-line: #e7e1ea;
+  --color-ink: #1b1220;
+  --color-muted: #5e5563;          /* beyazda 7.11 */
 
-  /* Copper. 600 is the text tone on paper (5.47); 500 is fill only;
-     400 is the text tone on the pass (6.90). */
-  --color-copper-700: #7e4719;
-  --color-copper-600: #96551f;
-  --color-copper-500: #b87333;
-  --color-copper-400: #d18f4f;
-  --color-copper-300: #e0ac74;
-
-  --color-flame-600: #b83d12;
-
-  /* Ticket paper */
-  --color-ticket-50: #faf8f3;
-  --color-ticket-100: #f0ece3;
-  --color-ticket-200: #dcd6c8;
-
-  --color-ink: #1c1a17;
-  --color-muted: #6a655c;       /* on paper, 5.45 */
-  --color-muted-pass: #a9a396;  /* on the pass, 7.45 */
+  --color-tomato: #d6301f;         /* beyazda 4.88; üstünde beyaz 4.88 */
+  --color-tomato-deep: #c8281a;    /* beyazda 5.56 — alt bilgi zemini */
+  --color-tomato-dark: #a51d10;    /* safranda 4.67 */
+  --color-tomato-bright: #ff5a3c;  /* patlıcanda 5.54 */
+  --color-saffron: #ffc21a;        /* üstünde mürekkep 11.25 */
+  --color-saffron-ink: #4a3a12;    /* safranda 6.82 */
+  --color-basil: #137a45;          /* beyazda 5.39 */
+  --color-sky: #1565c0;            /* beyazda 5.75 */
+  --color-hob: #e8590c;            /* yalnızca çubuk — beyazda 3.58 */
+  --color-plum: #6b2a7a;
+  --color-aubergine: #2b0f36;      /* üstünde beyaz 17.15, safran 10.60 */
+  --color-aubergine-2: #4b1d5c;
+  --color-lilac: #c9b8d1;          /* patlıcanda 9.20 */
 
   --font-display: var(--nf-display), system-ui, sans-serif;
   --font-body: var(--nf-body), system-ui, sans-serif;
@@ -40,15 +37,21 @@
   --gutter: clamp(1.25rem, 4vw, 3.5rem);
   --max: 86rem;
   --nav-h: 76px;
-  --hatch: repeating-linear-gradient(45deg, #dcd6c8 0 4px, #f0ece3 4px 8px);
-  --hatch-pass: repeating-linear-gradient(45deg, #454138 0 4px, #262320 4px 8px);
+  --hatch-pass: repeating-linear-gradient(45deg, #5d3470 0 3px, #2b0f36 3px 7px);
+  /* Öğün ve istasyon renkleri. Renk hiçbir yerde tek gösterge değil:
+     öğünün adı ve istasyonun kısaltması (OVN, HOB…) her zaman yanında. */
+  --course-starter: var(--color-basil);
+  --course-main: var(--color-tomato);
+  --course-side: var(--color-sky);
+  --course-pudding: var(--color-plum);
+  --focus: var(--color-tomato);
 }
 
 /* ─── Base ─────────────────────────────────────────────── */
 html, body { overflow-x: clip; }
 html { -webkit-font-smoothing: antialiased; scroll-padding-top: calc(var(--nav-h) + 1rem); }
 body {
-  background: var(--color-ticket-50);
+  background: var(--color-canvas);
   color: var(--color-ink);
   font-family: var(--font-body);
   line-height: 1.6;
@@ -63,13 +66,13 @@ h1, h2, h3, h4 {
 }
 p { text-wrap: pretty; }
 button:not(:disabled), a[href], label[for], summary { cursor: pointer; }
-:focus-visible { outline: 2px solid var(--color-copper-500); outline-offset: 3px; }
-::selection { background: var(--color-copper-300); color: var(--color-char-950); }
+:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; }
+::selection { background: var(--color-saffron); color: var(--color-ink); }
 img, video { display: block; max-width: 100%; }
 
 .skip-link {
   position: absolute; left: 1rem; top: -4rem; z-index: 100;
-  background: var(--color-char-950); color: var(--color-ticket-50);
+  background: var(--color-aubergine); color: var(--color-canvas);
   padding: 0.75rem 1rem; font-weight: 600;
 }
 .skip-link:focus { top: 1rem; }
@@ -91,7 +94,7 @@ main:focus { outline: none; }
   font-size: 0.72rem;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--color-copper-600);
+  color: var(--color-tomato);
   display: inline-flex; align-items: center; gap: 0.75rem;
 }
 .eyebrow::before { content: ''; width: 1.75rem; height: 1px; background: currentColor; }
@@ -109,23 +112,17 @@ main:focus { outline: none; }
 
 .perforation {
   height: 1px;
-  background-image: linear-gradient(90deg, var(--color-ticket-200) 0 6px, transparent 6px 12px);
+  background-image: linear-gradient(90deg, var(--color-line) 0 6px, transparent 6px 12px);
   background-size: 12px 1px;
 }
 
 /* ─── Ticket ───────────────────────────────────────────── */
+/* Fiş: kâğıt yırtığı yerine üstte kalın bir renk şeridi. */
 .ticket {
   position: relative;
   background: #fff;
-  border: 1px solid var(--color-ticket-200);
-}
-.ticket::after {
-  content: '';
-  position: absolute; left: -1px; right: -1px; bottom: -1px; height: 7px;
-  background-image:
-    linear-gradient(135deg, transparent 45%, var(--color-ticket-50) 46%),
-    linear-gradient(-135deg, transparent 45%, var(--color-ticket-50) 46%);
-  background-size: 12px 7px;
+  border: 1px solid var(--color-line);
+  border-top: 5px solid var(--ticket-tone, var(--color-tomato));
 }
 
 /* ─── Buttons & links ──────────────────────────────────── */
@@ -133,18 +130,21 @@ main:focus { outline: none; }
   display: inline-flex; align-items: center; justify-content: center; gap: 0.85rem;
   min-height: 3.25rem; padding: 0 1.6rem;
   font-weight: 600; font-size: 0.95rem;
-  background: var(--color-char-900); color: var(--color-ticket-50);
-  border: 1px solid var(--color-char-900);
+  background: var(--color-ink); color: var(--color-canvas);
+  border: 1px solid var(--color-ink);
   transition: background-color 0.3s var(--ease-out), color 0.3s var(--ease-out),
               border-color 0.3s var(--ease-out), transform 0.2s var(--ease-out);
 }
-.btn:hover { background: var(--color-copper-600); border-color: var(--color-copper-600); }
+.btn { background: var(--color-tomato); border-color: var(--color-tomato); color: #fff; }
+.btn:hover { background: var(--color-ink); border-color: var(--color-ink); }
 .btn:active { transform: scale(0.97); }
 .btn:disabled { opacity: 0.45; }
-.btn-ghost { background: transparent; color: var(--color-ink); border-color: var(--color-char-700); }
-.btn-ghost:hover { background: var(--color-char-900); color: var(--color-ticket-50); border-color: var(--color-char-900); }
-.btn-light { background: var(--color-ticket-50); color: var(--color-char-950); border-color: var(--color-ticket-50); }
-.btn-light:hover { background: var(--color-copper-400); border-color: var(--color-copper-400); color: var(--color-char-950); }
+.btn-ghost { background: transparent; color: var(--color-ink); border-color: var(--color-ink); }
+.btn-ghost:hover { background: var(--color-ink); color: var(--color-canvas); border-color: var(--color-ink); }
+.btn-light { background: #fff; color: var(--color-ink); border-color: #fff; }
+.btn-light:hover { background: var(--color-saffron); border-color: var(--color-saffron); color: var(--color-ink); }
+.btn-saffron { background: var(--color-saffron); color: var(--color-ink); border-color: var(--color-saffron); }
+.btn-saffron:hover { background: #fff; border-color: #fff; color: var(--color-ink); }
 .btn .arrow { transition: transform 0.3s var(--ease-out); }
 @media (hover: hover) and (pointer: fine) {
   .btn:hover .arrow { transform: translate(3px, -3px); }
@@ -158,22 +158,22 @@ main:focus { outline: none; }
   background: linear-gradient(currentColor, currentColor) 0 calc(100% - 0.55rem) / 100% 1px no-repeat;
   transition: color 0.2s ease;
 }
-.text-link:hover { color: var(--color-copper-600); }
+.text-link:hover { color: var(--color-tomato); }
 
 /* ─── Nav ──────────────────────────────────────────────── */
 .nav {
   position: fixed; inset: 0 0 auto; z-index: 50;
   height: var(--nav-h);
   color: var(--color-ink);
-  background: rgb(250 248 243 / 0.94);
-  border-bottom: 1px solid var(--color-ticket-200);
+  background: rgb(255 255 255 / 0.96);
+  border-bottom: 1px solid var(--color-line);
   transition: background-color 0.35s var(--ease-out), color 0.35s var(--ease-out),
               border-color 0.35s var(--ease-out);
 }
 .nav[data-tone='film'] {
   background: transparent;
-  color: var(--color-ticket-50);
-  border-color: rgb(250 248 243 / 0.14);
+  color: var(--color-canvas);
+  border-color: rgb(255 255 255 / 0.14);
 }
 .nav-inner { height: 100%; display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; }
 .wordmark { display: inline-flex; flex-direction: column; line-height: 1; }
@@ -202,15 +202,16 @@ main:focus { outline: none; }
 
 #scroll-progress {
   position: fixed; inset: 0 0 auto; height: 2px; z-index: 60;
-  background: var(--color-copper-500); transform-origin: 0 0; pointer-events: none;
+  background: var(--color-tomato); transform-origin: 0 0; pointer-events: none;
 }
 
 /* ─── Film (home opening) ──────────────────────────────── */
 .film {
+  --focus: var(--color-saffron);
   position: relative; isolation: isolate;
   min-height: 100svh;
   display: flex; flex-direction: column; justify-content: flex-end;
-  background: var(--color-char-950); color: var(--color-ticket-50);
+  background: var(--color-aubergine); color: var(--color-canvas);
   overflow: hidden;
 }
 .film-media { position: absolute; inset: 0; z-index: -2; }
@@ -218,25 +219,25 @@ main:focus { outline: none; }
 .film::before {
   content: ''; position: absolute; inset: 0; z-index: -1;
   background:
-    radial-gradient(ellipse 95% 110% at 0% 100%, rgb(20 18 15 / 0.92) 0%, rgb(20 18 15 / 0.7) 38%, rgb(20 18 15 / 0) 75%),
-    linear-gradient(to bottom, rgb(20 18 15 / 0.55) 0%, rgb(20 18 15 / 0) 22%);
+    radial-gradient(ellipse 95% 110% at 0% 100%, rgb(43 15 54 / 0.92) 0%, rgb(43 15 54 / 0.7) 38%, rgb(43 15 54 / 0) 75%),
+    linear-gradient(to bottom, rgb(43 15 54 / 0.55) 0%, rgb(43 15 54 / 0) 22%);
 }
 .film-copy { padding-top: calc(var(--nav-h) + 3rem); padding-bottom: clamp(2rem, 5vw, 3.5rem); }
-.film-copy .eyebrow { color: var(--color-copper-400); }
+.film-copy .eyebrow { color: var(--color-saffron); }
 .film h1 { margin-top: 1.5rem; max-width: 11ch; }
-.film .lede { color: rgb(250 248 243 / 0.82); margin-top: 1.75rem; }
+.film .lede { color: rgb(255 255 255 / 0.82); margin-top: 1.75rem; }
 .film-actions { margin-top: 2.25rem; display: flex; flex-wrap: wrap; gap: 1rem 2rem; align-items: center; }
-.film-actions .text-link { color: var(--color-ticket-50); }
-.film-actions .text-link:hover { color: var(--color-copper-400); }
+.film-actions .text-link { color: var(--color-canvas); }
+.film-actions .text-link:hover { color: var(--color-saffron); }
 .film-foot {
-  border-top: 1px solid rgb(250 248 243 / 0.16);
+  border-top: 1px solid rgb(255 255 255 / 0.16);
   padding-block: 1.25rem;
   display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem 2rem;
 }
-.film-foot .docket { color: var(--color-muted-pass); }
+.film-foot .docket { color: var(--color-lilac); }
 .film-foot .count { display: flex; align-items: center; gap: 1rem; }
 .film-foot .count b { font-family: var(--font-display); font-size: 2.6rem; font-weight: 700; letter-spacing: -0.04em; line-height: 1; }
-.film-foot .count span { font-size: 0.875rem; line-height: 1.35; color: rgb(250 248 243 / 0.82); }
+.film-foot .count span { font-size: 0.875rem; line-height: 1.35; color: rgb(255 255 255 / 0.82); }
 
 /* Dar ekran: dikey kadrajda tereyağı metnin tam arkasına düşüyordu. Film
    üst yarıda kendi alanında oynuyor, alt kenarı koyu zemine eriyor; metin
@@ -245,7 +246,7 @@ main:focus { outline: none; }
   .film-media { bottom: auto; height: 56svh; }
   .film-media::after {
     content: ''; position: absolute; inset: 0;
-    background: linear-gradient(to bottom, rgb(20 18 15 / 0.45) 0%, rgb(20 18 15 / 0) 25%, rgb(20 18 15 / 0) 55%, var(--color-char-950) 100%);
+    background: linear-gradient(to bottom, rgb(43 15 54 / 0.45) 0%, rgb(43 15 54 / 0) 25%, rgb(43 15 54 / 0) 55%, var(--color-aubergine) 100%);
   }
   .film::before { background: none; }
   .film-copy { padding-top: calc(56svh - 4rem); }
@@ -271,10 +272,10 @@ main:focus { outline: none; }
 .plan-clock .start {
   font-family: var(--font-mono); font-weight: 700;
   font-size: clamp(4.5rem, 12vw, 9rem); line-height: 0.9; letter-spacing: -0.04em;
-  color: var(--color-copper-600); font-variant-numeric: tabular-nums;
+  color: var(--color-tomato); font-variant-numeric: tabular-nums;
 }
 .plan-clock .start-label { margin-bottom: 0.75rem; }
-.plan-figures { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem; margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--color-ticket-200); }
+.plan-figures { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem; margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--color-line); }
 .plan-figures dd { font-family: var(--font-mono); font-size: 1.6rem; margin-top: 0.25rem; }
 .plan-photo { position: relative; margin-top: 2.5rem; aspect-ratio: 4 / 3; overflow: hidden; }
 .plan-photo img { object-fit: cover; }
@@ -282,52 +283,72 @@ main:focus { outline: none; }
    çerçevesinden biraz uzun. */
 .drift img { height: 112% !important; top: -12% !important; bottom: auto !important; }
 
-.time-field { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 1.25rem clamp(1.25rem, 3vw, 2rem); border-bottom: 1px solid var(--color-ticket-200); }
+.time-field { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 1.25rem clamp(1.25rem, 3vw, 2rem); border-bottom: 1px solid var(--color-line); }
 .time-field input {
-  font-family: var(--font-mono); font-size: 1.6rem; color: var(--color-copper-600);
-  background: var(--color-ticket-50); border: 1px solid var(--color-ticket-200);
+  font-family: var(--font-mono); font-size: 1.6rem; color: var(--color-tomato);
+  background: var(--color-canvas); border: 1px solid var(--color-line);
   padding: 0.4rem 0.75rem; min-height: 3rem;
 }
-.time-field input:focus-visible { outline: 2px solid var(--color-copper-500); outline-offset: 2px; }
+.time-field input:focus-visible { outline: 2px solid var(--color-tomato); outline-offset: 2px; }
 
 /* Timeline rows — shared by the plan and the recipe page */
 .steps { list-style: none; margin: 0; padding: 0 clamp(1.25rem, 3vw, 2rem); }
-.step { display: grid; grid-template-columns: 4.25rem minmax(0, 1fr); gap: 0.25rem 1rem; padding-block: 1.1rem; border-top: 1px solid var(--color-ticket-200); }
+.step { display: grid; grid-template-columns: 4.25rem minmax(0, 1fr); gap: 0.25rem 1rem; padding-block: 1.1rem; border-top: 1px solid var(--color-line); }
 .step:first-child { border-top: 0; }
-.step time { font-family: var(--font-mono); font-size: 0.95rem; color: var(--color-copper-600); padding-top: 0.1rem; }
+.step time { font-family: var(--font-mono); font-size: 0.95rem; color: var(--color-tomato); padding-top: 0.1rem; }
 .step p { color: var(--color-ink); line-height: 1.45; }
 .step .meta { grid-column: 2; display: flex; align-items: center; gap: 0.85rem; margin-top: 0.5rem; }
-.bar { height: 0.5rem; background: var(--color-copper-500); transform-origin: 0 50%; }
-.bar.idle { background: var(--hatch); }
+/* Çubuk rengi istasyonu söylüyor (fırın domates, ocak turuncu, tezgâh
+   fesleğen, buzdolabı gök); dolu = elin işte, taralı = bekliyor. Kısaltma
+   (OVN/HOB/PRP/CLD) yanında yazıyor — renk tek başına bilgi taşımıyor. */
+.bar { --st: var(--color-tomato); height: 0.55rem; background: var(--st); transform-origin: 0 50%; flex-shrink: 0; }
+.bar[data-station='oven'] { --st: var(--color-tomato); }
+.bar[data-station='hob'] { --st: var(--color-hob); }
+.bar[data-station='prep'] { --st: var(--color-basil); }
+.bar[data-station='cold'] { --st: var(--color-sky); }
+.bar.idle { background: repeating-linear-gradient(45deg, var(--st) 0 3px, transparent 3px 7px); box-shadow: inset 0 0 0 1px var(--st); }
+.station-tag { font-family: var(--font-mono); font-size: 0.66rem; letter-spacing: 0.1em; padding: 0.1rem 0.4rem; color: #fff; background: var(--st, var(--color-tomato)); }
+.station-tag[data-station='oven'] { --st: var(--color-tomato); }
+.station-tag[data-station='hob'] { --st: #b8430a; }
+.station-tag[data-station='prep'] { --st: var(--color-basil); }
+.station-tag[data-station='cold'] { --st: var(--color-sky); }
 .step .station { margin-left: auto; }
+/* Dar ekranda çubuk, süre ve istasyon tek satıra sığmıyordu: süre dar bir
+   sütuna kırılıyor, istasyon etiketi fişin kenarından taşıyordu. Çubuk
+   kendi satırında; altında solda süre, sağda istasyon. */
+@media (max-width: 40rem) {
+  .step .meta { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 0.5rem 0.75rem; }
+  .step .meta .bar { grid-column: 1 / -1; }
+  .step .meta .station-tag { justify-self: end; margin-left: 0; }
+}
 
 /* Ledger — every recipe, hands-on against waiting, on the pass */
-.pass { background: var(--color-char-950); color: var(--color-ticket-50); }
-.pass .eyebrow { color: var(--color-copper-400); }
-.pass .lede, .pass .docket { color: var(--color-muted-pass); }
-.ledger { list-style: none; padding: 0; margin: 0; border-top: 1px solid var(--color-char-700); }
-.ledger li { border-bottom: 1px solid var(--color-char-700); }
+.pass { --focus: var(--color-saffron); background: var(--color-aubergine); color: #fff; }
+.pass .eyebrow { color: var(--color-saffron); }
+.pass .lede, .pass .docket { color: var(--color-lilac); }
+.ledger { list-style: none; padding: 0; margin: 0; border-top: 1px solid rgb(255 255 255 / 0.16); }
+.ledger li { border-bottom: 1px solid rgb(255 255 255 / 0.16); }
 .ledger a { display: grid; grid-template-columns: minmax(0, 1fr); gap: 0.6rem; padding-block: 1rem; }
 @media (min-width: 48rem) {
   .ledger a { grid-template-columns: minmax(0, 16rem) minmax(0, 1fr) 10rem; align-items: center; gap: 2rem; }
 }
 .ledger .name { font-family: var(--font-display); font-weight: 600; font-size: 1.1rem; letter-spacing: -0.01em; transition: color 0.2s ease; }
-.ledger a:hover .name { color: var(--color-copper-400); }
+.ledger a:hover .name { color: var(--color-saffron); }
 .ledger .track { display: flex; height: 0.7rem; background: var(--hatch-pass); }
-.ledger .track .hands { background: var(--color-copper-500); transform-origin: 0 50%; }
-.ledger .nums { font-family: var(--font-mono); font-size: 0.8rem; color: var(--color-muted-pass); text-align: right; white-space: nowrap; }
-.ledger .nums b { color: var(--color-copper-400); font-weight: 400; }
+.ledger .track .hands { background: var(--color-saffron); transform-origin: 0 50%; }
+.ledger .nums { font-family: var(--font-mono); font-size: 0.8rem; color: var(--color-lilac); text-align: right; white-space: nowrap; }
+.ledger .nums b { color: var(--color-saffron); font-weight: 400; }
 .legend { display: flex; flex-wrap: wrap; gap: 1rem 2rem; margin-top: 1.5rem; }
 .legend span { display: inline-flex; align-items: center; gap: 0.6rem; }
 .legend i { display: inline-block; width: 2rem; height: 0.55rem; }
 
 /* Cards */
 .card { display: block; min-width: 0; }
-.card-media { position: relative; overflow: hidden; background: var(--color-ticket-100); aspect-ratio: 4 / 3; }
+.card-media { position: relative; overflow: hidden; background: var(--color-mist); aspect-ratio: 4 / 3; }
 .card-media img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s var(--ease-out); }
 @media (hover: hover) and (pointer: fine) {
   .card:hover .card-media img { transform: scale(1.04); }
-  .card:hover .card-title { text-decoration-color: var(--color-copper-500); }
+  .card:hover .card-title { text-decoration-color: var(--color-tomato); }
 }
 .card-meta { display: flex; justify-content: space-between; gap: 1rem; margin-top: 1.1rem; }
 .card-title {
@@ -336,9 +357,9 @@ main:focus { outline: none; }
   transition: text-decoration-color 0.2s ease;
 }
 .card-short { margin-top: 0.6rem; color: var(--color-muted); line-height: 1.5; }
-.card-stats { display: flex; gap: 1.75rem; margin-top: 1.1rem; padding-top: 1rem; border-top: 1px solid var(--color-ticket-200); }
+.card-stats { display: flex; gap: 1.75rem; margin-top: 1.1rem; padding-top: 1rem; border-top: 1px solid var(--color-line); }
 .card-stats dd { font-family: var(--font-mono); font-size: 0.9rem; margin-top: 0.2rem; }
-.card-stats .hands dd { color: var(--color-copper-600); }
+.card-stats .hands dd { color: var(--color-tomato); }
 
 .selection { display: grid; gap: clamp(2.5rem, 4vw, 3.5rem) clamp(1.5rem, 3vw, 3rem); }
 @media (min-width: 56rem) {
@@ -347,29 +368,46 @@ main:focus { outline: none; }
   .selection > :first-child .card-media { aspect-ratio: 4 / 5; }
 }
 
+/* Safran bloğu — anasayfadaki kısa seçki */
+.block-saffron { --focus: var(--color-ink); background: var(--color-saffron); color: var(--color-ink); }
+.block-saffron .eyebrow { color: var(--color-ink); }
+.block-saffron .docket, .block-saffron .card-short { color: var(--color-saffron-ink); }
+.block-saffron .card-stats { border-top-color: rgb(27 18 32 / 0.2); }
+.block-saffron .card-stats .hands dd { color: var(--color-tomato-dark); }
+.block-saffron .text-link:hover { color: var(--color-tomato-dark); }
+.block-saffron .card-media { background: rgb(27 18 32 / 0.08); }
+/* Öğün renkleri ve domates safranda 3:1'in bile altında kalıyor; blokta
+   koyu domates (4.67) ve mürekkep kullanılıyor. */
+.block-saffron .tone, .block-saffron .text-tomato { color: var(--color-tomato-dark); }
+
 /* Index list */
 .chips { display: flex; flex-wrap: wrap; gap: 0.5rem; }
 .chip {
   display: inline-flex; align-items: center; gap: 0.5rem;
   min-height: 2.75rem; padding: 0 1rem;
-  border: 1px solid var(--color-ticket-200); background: transparent;
+  border: 1px solid var(--color-line); background: transparent;
   font-size: 0.9rem; color: var(--color-ink);
   transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
 }
-.chip:hover { border-color: var(--color-char-700); }
-.chip[aria-pressed='true'] { background: var(--color-char-900); border-color: var(--color-char-900); color: var(--color-ticket-50); }
+.chip:hover { border-color: var(--color-ink); }
+.chip[aria-pressed='true'] { background: var(--color-tomato); border-color: var(--color-tomato); color: #fff; }
 .chip .n { font-family: var(--font-mono); font-size: 0.72rem; opacity: 0.75; }
+/* Öğün çipleri: yanlarında öğün renginde bir nokta, seçilince o renk. */
+.chip.toned::before { content: ''; width: 0.6rem; height: 0.6rem; border-radius: 50%; background: var(--tone); }
+.chip.toned:hover { border-color: var(--tone); }
+.chip.toned[aria-pressed='true'] { background: var(--tone); border-color: var(--tone); color: #fff; }
+.chip.toned[aria-pressed='true']::before { background: #fff; }
 
-.index { list-style: none; padding: 0; margin: 0; border-top: 1px solid var(--color-ticket-200); }
+.index { list-style: none; padding: 0; margin: 0; border-top: 1px solid var(--color-line); }
 .index a {
   display: grid; grid-template-columns: 4.5rem minmax(0, 1fr) auto; align-items: center; gap: 1rem 1.5rem;
-  padding-block: 1rem; border-bottom: 1px solid var(--color-ticket-200);
+  padding-block: 1rem; border-bottom: 1px solid var(--color-line);
 }
 .index img { width: 4.5rem; height: 4.5rem; object-fit: cover; }
 .index h3 { font-size: clamp(1.2rem, 2vw, 1.6rem); letter-spacing: -0.02em; transition: color 0.2s ease; }
-.index a:hover h3 { color: var(--color-copper-600); }
+.index a:hover h3 { color: var(--color-tomato); }
 .index .arrow { font-size: 1.25rem; color: var(--color-muted); transition: transform 0.3s var(--ease-out), color 0.2s ease; }
-@media (hover: hover) and (pointer: fine) { .index a:hover .arrow { transform: translate(3px, -3px); color: var(--color-copper-600); } }
+@media (hover: hover) and (pointer: fine) { .index a:hover .arrow { transform: translate(3px, -3px); color: var(--color-tomato); } }
 
 /* Recipes page rail */
 .rail { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: var(--nav-h); }
@@ -377,11 +415,11 @@ main:focus { outline: none; }
 .rail a { position: relative; overflow: hidden; aspect-ratio: 1; }
 @media (min-width: 40rem) { .rail a { aspect-ratio: 4 / 3; } }
 .rail img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.9s var(--ease-out); }
-.rail a::after { content: ''; position: absolute; inset: 0; background: rgb(20 18 15 / 0.3); transition: background-color 0.4s ease; }
-.rail span { position: absolute; left: 0.6rem; bottom: 0.5rem; z-index: 1; font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.14em; color: var(--color-ticket-50); }
+.rail a::after { content: ''; position: absolute; inset: 0; background: rgb(43 15 54 / 0.3); transition: background-color 0.4s ease; }
+.rail span { position: absolute; left: 0.6rem; bottom: 0.5rem; z-index: 1; font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.14em; color: var(--color-canvas); }
 @media (hover: hover) and (pointer: fine) {
   .rail a:hover img { transform: scale(1.06); }
-  .rail a:hover::after { background: rgb(20 18 15 / 0.05); }
+  .rail a:hover::after { background: rgb(43 15 54 / 0.05); }
 }
 
 .page-top { padding-top: calc(var(--nav-h) + clamp(3rem, 7vw, 6rem)); }
@@ -397,29 +435,35 @@ main:focus { outline: none; }
 /* Recipe page */
 .recipe-head { display: grid; gap: clamp(2rem, 4vw, 4rem); align-items: end; }
 @media (min-width: 60rem) { .recipe-head { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); } }
-.recipe-photo { overflow: hidden; aspect-ratio: 4 / 3; background: var(--color-ticket-100); }
+.recipe-photo { overflow: hidden; aspect-ratio: 4 / 3; background: var(--color-mist); }
 @media (min-width: 60rem) { .recipe-photo { aspect-ratio: 1; } }
 .recipe-photo img { width: 100%; height: 115%; object-fit: cover; }
 .stamps { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.course-starter { --tone: var(--course-starter); }
+.course-main { --tone: var(--course-main); }
+.course-side { --tone: var(--course-side); }
+.course-pudding { --tone: var(--course-pudding); }
+.tone { color: var(--tone); }
+.stamp.solid { background: var(--tone); border-color: var(--tone); color: #fff; }
 .stamp { display: inline-flex; align-items: center; padding: 0.25rem 0.6rem; border: 1px solid currentColor; font-family: var(--font-mono); font-size: 0.66rem; letter-spacing: 0.1em; text-transform: uppercase; }
 .recipe-figures { display: flex; flex-wrap: wrap; gap: 1.5rem 2.5rem; }
 .recipe-figures dd { font-family: var(--font-mono); font-size: 1.35rem; margin-top: 0.2rem; }
-.recipe-body { display: grid; gap: clamp(2rem, 4vw, 3.5rem); align-items: start; margin-top: clamp(3rem, 6vw, 5rem); }
+.recipe-body { display: grid; grid-template-columns: minmax(0, 1fr); gap: clamp(2rem, 4vw, 3.5rem); align-items: start; margin-top: clamp(3rem, 6vw, 5rem); }
 @media (min-width: 64rem) { .recipe-body { grid-template-columns: minmax(0, 20rem) minmax(0, 1fr); } }
 .ingredients { padding: clamp(1.25rem, 3vw, 1.75rem); }
 @media (min-width: 64rem) { .ingredients { position: sticky; top: calc(var(--nav-h) + 1.5rem); } }
-.stepper { display: inline-flex; align-items: stretch; border: 1px solid var(--color-ticket-200); }
+.stepper { display: inline-flex; align-items: stretch; border: 1px solid var(--color-line); }
 .stepper button { width: 2.75rem; min-height: 2.75rem; font-size: 1.1rem; color: var(--color-ink); transition: background-color 0.2s ease; }
-.stepper button:hover:not(:disabled) { background: var(--color-ticket-100); }
+.stepper button:hover:not(:disabled) { background: var(--color-mist); }
 .stepper button:disabled { opacity: 0.35; }
-.stepper output { display: grid; place-items: center; min-width: 2.5rem; font-family: var(--font-mono); border-inline: 1px solid var(--color-ticket-200); }
+.stepper output { display: grid; place-items: center; min-width: 2.5rem; font-family: var(--font-mono); border-inline: 1px solid var(--color-line); }
 .ing-list { list-style: none; padding: 0; margin: 1.25rem 0 0; display: grid; gap: 0.7rem; }
 .ing-list li { display: grid; grid-template-columns: 5.75rem minmax(0, 1fr); gap: 0.9rem; font-size: 0.95rem; line-height: 1.4; }
-.ing-list .q { font-family: var(--font-mono); color: var(--color-copper-600); text-align: right; white-space: nowrap; }
-.notice { border: 1px solid rgb(184 61 18 / 0.45); color: var(--color-flame-600); padding: 0.75rem 1rem; font-size: 0.9rem; }
+.ing-list .q { font-family: var(--font-mono); color: var(--color-tomato); text-align: right; white-space: nowrap; }
+.notice { border: 1px solid rgb(200 40 26 / 0.45); color: var(--color-tomato-deep); padding: 0.75rem 1rem; font-size: 0.9rem; }
 
 /* Method */
-.doc-row { display: grid; gap: 1rem 3rem; padding-block: clamp(2.5rem, 5vw, 4rem); border-top: 1px solid var(--color-ticket-200); }
+.doc-row { display: grid; gap: 1rem 3rem; padding-block: clamp(2.5rem, 5vw, 4rem); border-top: 1px solid var(--color-line); }
 @media (min-width: 56rem) {
   .doc-row { grid-template-columns: minmax(0, 18rem) minmax(0, 40rem); }
   .doc-row > h2 { position: sticky; top: calc(var(--nav-h) + 2rem); align-self: start; }
@@ -428,15 +472,15 @@ main:focus { outline: none; }
 .doc-row p { color: var(--color-ink); line-height: 1.7; font-size: 1.05rem; }
 
 /* Footer */
-.foot { background: var(--color-char-950); color: var(--color-ticket-50); overflow: hidden; margin-top: clamp(4rem, 8vw, 7rem); }
+.foot { --focus: #fff; background: var(--color-tomato-deep); color: #fff; overflow: hidden; margin-top: clamp(4rem, 8vw, 7rem); }
 .foot-top { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 2rem; padding-block: clamp(4rem, 8vw, 6rem) 2rem; }
 .foot-top p { font-family: var(--font-display); font-weight: 700; font-size: clamp(2rem, 4.5vw, 3.75rem); line-height: 1; letter-spacing: -0.04em; max-width: 14ch; }
-.foot-mark { font-family: var(--font-display); font-weight: 800; font-size: clamp(6rem, 37.5vw, 36rem); line-height: 0.72; letter-spacing: -0.06em; color: var(--color-char-800); margin-bottom: -0.02em; user-select: none; }
-.foot-bottom { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 1rem 2rem; padding-block: 1.5rem; border-top: 1px solid var(--color-char-700); font-size: 0.875rem; color: var(--color-muted-pass); }
+.foot-mark { font-family: var(--font-display); font-weight: 800; font-size: clamp(6rem, 37.5vw, 36rem); line-height: 0.72; letter-spacing: -0.06em; color: #a91e11; margin-bottom: -0.02em; user-select: none; }
+.foot-bottom { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 1rem 2rem; padding-block: 1.5rem; border-top: 1px solid rgb(255 255 255 / 0.3); font-size: 0.875rem; color: #fff; }
 .foot-bottom nav { display: flex; gap: 1.5rem; }
-.foot-bottom a { min-height: 2.75rem; display: inline-flex; align-items: center; color: var(--color-ticket-50); }
-.foot-bottom a:hover { color: var(--color-copper-400); }
-.foot-credit { padding-bottom: 2rem; font-size: 0.8rem; line-height: 1.6; color: var(--color-muted-pass); max-width: 70ch; }
+.foot-bottom a { min-height: 2.75rem; display: inline-flex; align-items: center; color: #fff; text-underline-offset: 4px; }
+.foot-bottom a:hover { text-decoration: underline; }
+.foot-credit { padding-bottom: 2rem; font-size: 0.8rem; line-height: 1.6; color: #fff; max-width: 70ch; }
 .foot-credit a { text-decoration: underline; text-underline-offset: 3px; }
 
 /* ─── GSAP başlangıç hâlleri ─────────────────────────────

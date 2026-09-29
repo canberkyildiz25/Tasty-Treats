@@ -40,7 +40,7 @@ export default async function RecipePage({ params }: { params: Promise<{ slug: s
   return (
     <article className="frame page-top">
       <nav aria-label="Breadcrumb" className="docket flex gap-2">
-        <Link href="/recipes" className="hover:text-copper-600">Recipes</Link>
+        <Link href="/recipes" className="hover:text-tomato">Recipes</Link>
         <span aria-hidden>/</span>
         <span className="text-ink">{recipe.ticket}</span>
       </nav>
@@ -48,7 +48,7 @@ export default async function RecipePage({ params }: { params: Promise<{ slug: s
       <header className="recipe-head mt-8">
         <div>
           <div className="stamps">
-            <span className="stamp text-copper-600">{course?.label}</span>
+            <span className={`stamp solid course-${recipe.course}`}>{course?.label}</span>
             <span className="stamp text-muted">{kitchen?.label}</span>
             <span className="stamp text-muted" aria-label={`Difficulty ${recipe.difficulty} of 3`}>
               {'●'.repeat(recipe.difficulty)}{'○'.repeat(3 - recipe.difficulty)}
@@ -59,7 +59,7 @@ export default async function RecipePage({ params }: { params: Promise<{ slug: s
           <div className="mt-8 flex flex-wrap items-center gap-6">
             <SaveButton slug={recipe.slug} />
             <dl className="recipe-figures">
-              <div><dt className="docket">Hands on</dt><dd className="text-copper-600">{formatDuration(activeMinutes(recipe))}</dd></div>
+              <div><dt className="docket">Hands on</dt><dd className="text-tomato">{formatDuration(activeMinutes(recipe))}</dd></div>
               <div><dt className="docket">Total</dt><dd>{formatDuration(totalMinutes(recipe))}</dd></div>
               <div><dt className="docket">Serves</dt><dd>{recipe.serves}</dd></div>
             </dl>
@@ -74,7 +74,7 @@ export default async function RecipePage({ params }: { params: Promise<{ slug: s
             {/* Wikimedia lisansı künyeyi zorunlu kılıyor. */}
             <figcaption className="docket mt-3">
               {photo.credit} ·{' '}
-              <a href={photo.page || photo.licenseUrl} target="_blank" rel="noreferrer" className="underline underline-offset-2 hover:text-copper-600">
+              <a href={photo.page || photo.licenseUrl} target="_blank" rel="noreferrer" className="underline underline-offset-2 hover:text-tomato">
                 {photo.license}
               </a>
             </figcaption>

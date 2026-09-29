@@ -31,8 +31,8 @@ export default function CookTimeline({ recipe }: { recipe: Recipe }) {
       </div>
       <TimeInput id="serve-at" label="Eating at" value={serveAt} onChange={setServeAt} />
 
-      <dl className="grid grid-cols-3 gap-4 px-[clamp(1.25rem,3vw,2rem)] py-6 border-b border-ticket-200" aria-live="polite" aria-atomic="true">
-        <div><dt className="docket">Start at</dt><dd className="mono text-[clamp(1.4rem,3vw,2rem)] text-copper-600 mt-1">{plan.startLabel}</dd></div>
+      <dl className="grid grid-cols-3 gap-4 px-[clamp(1.25rem,3vw,2rem)] py-6 border-b border-line" aria-live="polite" aria-atomic="true">
+        <div><dt className="docket">Start at</dt><dd className="mono text-[clamp(1.4rem,3vw,2rem)] text-tomato mt-1">{plan.startLabel}</dd></div>
         <div><dt className="docket">Hands on</dt><dd className="mono text-[clamp(1.1rem,2.2vw,1.5rem)] mt-1">{formatDuration(plan.hands)}</dd></div>
         <div><dt className="docket">Waiting</dt><dd className="mono text-[clamp(1.1rem,2.2vw,1.5rem)] mt-1">{formatDuration(plan.idle)}</dd></div>
       </dl>
@@ -51,23 +51,36 @@ export default function CookTimeline({ recipe }: { recipe: Recipe }) {
             <div className="meta">
               <span
                 className={`bar bar-grow ${step.hands ? '' : 'idle'}`}
+                data-station={step.station}
                 style={{ width: `${Math.max(6, (step.minutes / longest) * 100) * 0.62}%` }}
                 aria-hidden
               />
               <span className="docket">
                 {formatDuration(step.minutes)}{step.hands ? '' : ' · unattended'}
               </span>
-              <span className="docket station hidden sm:inline">{STATIONS[step.station].short}</span>
+              <span className="station-tag station" data-station={step.station} title={STATIONS[step.station].label}>
+                {STATIONS[step.station].short}
+              </span>
             </div>
           </li>
         ))}
       </ol>
 
       <div className="perforation mx-[clamp(1.25rem,3vw,2rem)]" />
-      <p className="px-[clamp(1.25rem,3vw,2rem)] pt-4 pb-7 text-sm text-muted leading-relaxed">
-        Solid bars need you at the bench. Hatched ones do not — that is when the next thing
-        gets started, or when you sit down.
-      </p>
+      <div className="px-[clamp(1.25rem,3vw,2rem)] pt-4 pb-7">
+        <p className="text-sm text-muted leading-relaxed">
+          Solid bars need you at the bench. Hatched ones do not — that is when the next thing
+          gets started, or when you sit down. The colour is the station:
+        </p>
+        <ul className="legend docket mt-3" aria-label="Stations">
+          {(Object.keys(STATIONS) as (keyof typeof STATIONS)[]).map((id) => (
+            <li key={id} className="inline-flex items-center gap-2">
+              <span className="station-tag" data-station={id}>{STATIONS[id].short}</span>
+              {STATIONS[id].label}
+            </li>
+          ))}
+        </ul>
+      </div>
     </section>
   )
 }

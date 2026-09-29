@@ -33,7 +33,7 @@ export default function RecipeCard({
         </div>
       )}
       <div className="card-meta docket">
-        <span>{recipe.ticket} / {kitchen?.label}</span>
+        <span><b className={`tone course-${recipe.course} font-normal`}>{recipe.ticket}</b> / {kitchen?.label}</span>
         <SavedMark slug={recipe.slug} />
       </div>
       <Heading className="card-title title-s">{recipe.title}</Heading>

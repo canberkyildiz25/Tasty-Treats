@@ -32,7 +32,7 @@ export default function SavedList() {
     <>
       <dl className="flex flex-wrap gap-10 mb-10">
         <div><dt className="docket">On the list</dt><dd className="mono text-3xl mt-1">{list.length}</dd></div>
-        <div><dt className="docket">Hands on, all of it</dt><dd className="mono text-3xl text-copper-600 mt-1">{formatDuration(handsTotal)}</dd></div>
+        <div><dt className="docket">Hands on, all of it</dt><dd className="mono text-3xl text-tomato mt-1">{formatDuration(handsTotal)}</dd></div>
       </dl>
       <ul className="grid gap-5">
         {list.map((r) => {
@@ -49,16 +49,16 @@ export default function SavedList() {
                   )}
                   <span className="min-w-0">
                     <span className="docket block">{r.ticket} · {kitchen?.label}</span>
-                    <span className="title-s block mt-1 group-hover:text-copper-600 transition-colors">{r.title}</span>
+                    <span className="title-s block mt-1 group-hover:text-tomato transition-colors">{r.title}</span>
                   </span>
                 </Link>
                 <dl className="flex gap-6">
                   <div><dt className="docket">Total</dt><dd className="mono mt-0.5">{formatDuration(totalMinutes(r))}</dd></div>
-                  <div><dt className="docket">Hands on</dt><dd className="mono mt-0.5 text-copper-600">{formatDuration(activeMinutes(r))}</dd></div>
+                  <div><dt className="docket">Hands on</dt><dd className="mono mt-0.5 text-tomato">{formatDuration(activeMinutes(r))}</dd></div>
                 </dl>
                 <button
                   onClick={() => toggle(r.slug)}
-                  className="docket min-h-11 px-2 hover:text-flame-600 transition-colors"
+                  className="docket min-h-11 px-2 hover:text-tomato-deep transition-colors"
                   aria-label={`Remove ${r.title} from saved`}
                 >
                   Remove

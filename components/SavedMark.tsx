@@ -5,5 +5,5 @@ import { useKitchen } from '@/lib/store'
    yüklendikten sonra; sunucu çizimi her zaman boş. */
 export default function SavedMark({ slug }: { slug: string }) {
   const saved = useKitchen((s) => s.hydrated && s.saved.includes(slug))
-  return <span className="text-copper-600">{saved ? 'Saved' : ' '}</span>
+  return <span className="text-tomato">{saved ? 'Saved' : ' '}</span>
 }
