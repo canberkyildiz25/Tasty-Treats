@@ -1,10 +1,5 @@
-/* Hallmark · macrostructure: Film opening → workbench · genre: editorial/utility
- * surfaces: pass (charcoal) → paper → pass → paper · design.md
- * type: Bricolage Grotesque 800 display · Onest body · Space Mono figures
- * enrichment: opening film (Pexels, credited) · recipe photographs (Wikimedia, credited)
- * motion: staged opening, film parallax, word rise, photo curtains, bars that
- *   grow to their real length, count-up, magnetic CTA · all gated on reduced motion
- * pre-emit critique: P5 H5 E4 S5 R4 V5
+/* The front page: an opening film, then the workbench. Charcoal and paper
+ * alternate down the page, and every motion on it is gated on reduced motion.
  */
 import Link from 'next/link'
 import { recipes, findRecipe, activeMinutes, totalMinutes, formatDuration } from '@/lib/recipes'
